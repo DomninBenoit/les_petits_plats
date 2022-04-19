@@ -1,0 +1,26 @@
+.ingredientsTags {
+  background: $color-primary;
+}
+
+.applianceTags {
+  background: $color-secondary;
+}
+
+.ustensilsTags {
+  background: $color-tertiary;
+}
+
+.ingredientsTags, .applianceTags, .ustensilsTags {
+  height: 37px;
+  margin: 20px 5px 0 0;
+  border-radius: 5px;
+  color: white;
+  border: none;
+
+  span {
+    font-size: 14px;
+  }
+  .fa-times-circle {
+    margin-left: 5px;
+  }
+}

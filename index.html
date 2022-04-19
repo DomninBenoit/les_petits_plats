@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="CSS/style.css"/>
+    <script src="https://kit.fontawesome.com/e8abfa8029.js" crossorigin="anonymous"></script>
+    <title>Les petits plats</title>
+</head>
+<body>
+<header>
+    <a href="index.html">
+        <img src="asset/logo.png" id="logo" alt="logo">
+    </a>
+</header>
+
+<div class="search">
+    <div class="searchFirst">
+        <input
+                class="input-group"
+                id="general"
+                type="search"
+                placeholder="Rechercher une recette"
+        />
+        <i class="fas fa-search"></i>
+    </div>
+</div>
+<div id="tagList"></div>
+<div class="search">
+    <div class="searchDetails">
+        <div class="ingredientBloc">
+            <input
+                    class="input-group"
+                    id="ingredients"
+                    type="text"
+                    placeholder="Ingredients"
+            />
+            <div class="dropdown">
+                <button type="button" class="btn fas fa-chevron-down"
+                        data-bs-toggle="dropdown">
+                </button>
+                <ul class="dropdown-menu dropdownIngredients" id="dropdownIngredients">
+                </ul>
+            </div>
+        </div>
+        <div class="appareilsBloc">
+            <input
+                    class="input-group"
+                    id="appareils"
+                    type="text"
+                    placeholder="Appareils"
+            />
+            <div class="dropdown">
+                <button type="button" class="btn fas fa-chevron-down"
+                        data-bs-toggle="dropdown">
+                </button>
+                <ul class="dropdown-menu dropdownAppliance" id="dropdownAppliance">
+                </ul>
+            </div>
+        </div>
+        <div class="ustensilesBloc">
+            <input
+                    class="input-group"
+                    id="ustensiles"
+                    type="text"
+                    placeholder="Ustensiles"
+                    autocomplete="off"
+            />
+            <div class="dropdown">
+                <button type="button" class="btn fas fa-chevron-down"
+                        data-bs-toggle="dropdown">
+                </button>
+                <ul class="dropdown-menu dropdownUstensils" id="dropdownUstensils">
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main>
+    <section class="recipe_section"></section>
+</main>
+<script src="script/data/recipes.js"></script>
+<script src="script/factories/recipes.js"></script>
+<script src="script/page/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
