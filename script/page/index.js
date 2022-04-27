@@ -1,7 +1,8 @@
-function displayRecipe() {
+function displayRecipe(recipesArray) {
     const recipesSection = document.querySelector('.recipe_section');
 
-    recipes.forEach((recipe) => {
+    recipesSection.innerHTML = "";
+    recipesArray.forEach((recipe) => {
         const recipeModel = recipesFactory(recipe);
         const recipeCardDOM = recipeModel.getRecipeCardDOM();
         recipesSection.appendChild(recipeCardDOM);
@@ -10,6 +11,7 @@ function displayRecipe() {
 
 function displayIngredients(listIngredients) {
     const dropdownIngredients = document.getElementById('dropdownIngredients');
+    dropdownIngredients.innerHTML = "";
     listIngredients.forEach((ingredientList) => {
         const ingredient = document.createElement('li');
         const lienIngredient = document.createElement('a');
@@ -23,6 +25,7 @@ function displayIngredients(listIngredients) {
 
 function displayAppliance(listAppliance) {
     const dropdownAppliance = document.getElementById('dropdownAppliance');
+    listAppliance.innerHTML = "";
     listAppliance.forEach((applianceList) => {
         const appliance = document.createElement('li');
         const lienAppliances = document.createElement('a');
@@ -63,7 +66,7 @@ function tagEventCreator(event, btnColor) {
         event[i].addEventListener("click", (e) => {
             let text = e.target.innerText;
             const tag = `<button type="button" class="${btnColor}">
-      <span>${text}</span><i class="far fa-times-circle"></i></button>`
+      <span class="tag">${text}</span><i class="far fa-times-circle"></i></button>`
             tagList.insertAdjacentHTML('beforeend', tag);
             tagClose();
         })
@@ -78,6 +81,38 @@ function tagClose() {
     });
 }
 
+function searchGeneral(recipe, value) {
+
+    return recipe.name.toLowerCase().includes(value.toLowerCase()) ||
+        recipe.description.toLowerCase().includes(value.toLowerCase())
+}
+
+function searchTags(recipe) {
+    let listIngredients2 = [];
+        recipe.ingredients.forEach((ingredient) => {
+            if (!listIngredients2.includes(ingredient.ingredient.toLowerCase())) {
+                listIngredients2.push(ingredient.ingredient.toLowerCase());
+            }
+        })
+    console.log(listIngredients2)
+    return listIngredients2;
+
+    /*recipe.ingredients.findIndex((ingredient) => ingredient.ingredient.toLowerCase()).includes(ingredientsTags.findIndex((tagSelect) => tagSelect.toLowerCase()));*/
+
+}
+
+function searchFilter() {
+    const general = document.getElementById('general');
+
+    general.addEventListener("keyup", (event) => {
+        let recipesFilters = recipes.filter((recipe) => {
+            return searchGeneral(recipe, event.target.value) && searchTags(recipe);
+        })
+        displayRecipe(recipesFilters);
+        displayIngredients(recipesFilters);
+
+    });
+}
 
 function init() {
     let listIngredients = [];
@@ -102,7 +137,7 @@ function init() {
         })
     });
     const click = document.querySelector('.fa-chevron-down');
-    click.addEventListener("click", () =>{
+    click.addEventListener("click", () => {
         const ingBloc = document.querySelector('.ingredientBloc');
         ingBloc.classList.toggle("dropdownOpen");
     })
@@ -111,6 +146,7 @@ function init() {
     displayAppliance(listAppliance);
     displayUstensils(listUstensil);
     tagEvent();
+    searchFilter();
 };
 
 init();

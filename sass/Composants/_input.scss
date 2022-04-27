@@ -46,11 +46,11 @@
     color: white;
   }
 
-  .dropdownOpen {
+/*  .dropdownOpen {
     width: 677px !important;
     z-index: 1;
 
-  }
+  }*/
 
   .input-group::placeholder {
     color: white;
@@ -108,8 +108,8 @@
 }
 
 .dropdown-menu.show {
-  width: 677px;
-  transform: translate3d(-637px, 40px, 0) !important;
+ /* width: 677px;*/
+  /*transform: translate3d(-637px, 40px, 0) !important;*/
   border: none;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

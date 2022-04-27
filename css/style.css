@@ -11167,6 +11167,11 @@ header img {
   display: flex;
   flex-direction: row;
   margin: 25px 0 0 0;
+  /*  .dropdownOpen {
+      width: 677px !important;
+      z-index: 1;
+
+    }*/
 }
 .searchDetails .input-group {
   width: 170px;
@@ -11174,10 +11179,6 @@ header img {
   padding-left: 15px;
   border: none;
   color: white;
-}
-.searchDetails .dropdownOpen {
-  width: 677px !important;
-  z-index: 1;
 }
 .searchDetails .input-group::placeholder {
   color: white;
@@ -11227,8 +11228,8 @@ header img {
 }
 
 .dropdown-menu.show {
-  width: 677px;
-  transform: translate3d(-637px, 40px, 0) !important;
+  /* width: 677px;*/
+  /*transform: translate3d(-637px, 40px, 0) !important;*/
   border: none;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
