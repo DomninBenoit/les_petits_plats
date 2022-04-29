@@ -11317,29 +11317,29 @@ header img {
   color: #000000;
 }
 
-.ingredientsTags {
+.ingredientsTagsBtn {
   background: #3282F7;
 }
 
-.applianceTags {
+.applianceTagsBtn {
   background: #68D9A4;
 }
 
-.ustensilsTags {
+.ustensilsTagsBtn {
   background: #ED6454;
 }
 
-.ingredientsTags, .applianceTags, .ustensilsTags {
+.ingredientsTagsBtn, .applianceTagsBtn, .ustensilsTagsBtn {
   height: 37px;
   margin: 20px 5px 0 0;
   border-radius: 5px;
   color: white;
   border: none;
 }
-.ingredientsTags span, .applianceTags span, .ustensilsTags span {
+.ingredientsTagsBtn span, .applianceTagsBtn span, .ustensilsTagsBtn span {
   font-size: 14px;
 }
-.ingredientsTags .fa-times-circle, .applianceTags .fa-times-circle, .ustensilsTags .fa-times-circle {
+.ingredientsTagsBtn .fa-times-circle, .applianceTagsBtn .fa-times-circle, .ustensilsTagsBtn .fa-times-circle {
   margin-left: 5px;
 }
 

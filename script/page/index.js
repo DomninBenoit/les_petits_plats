@@ -1,6 +1,5 @@
 function displayRecipe(recipesArray) {
     const recipesSection = document.querySelector('.recipe_section');
-
     recipesSection.innerHTML = "";
     recipesArray.forEach((recipe) => {
         const recipeModel = recipesFactory(recipe);
@@ -17,6 +16,7 @@ function displayIngredients(listIngredients) {
         const lienIngredient = document.createElement('a');
         lienIngredient.classList.add('dropdown-item', 'eventIngredients');
         lienIngredient.textContent = ingredientList;
+        lienIngredient.addEventListener('click', () => filterRecipes());
         ingredient.appendChild(lienIngredient);
         dropdownIngredients.appendChild(ingredient);
     })
@@ -25,12 +25,13 @@ function displayIngredients(listIngredients) {
 
 function displayAppliance(listAppliance) {
     const dropdownAppliance = document.getElementById('dropdownAppliance');
-    listAppliance.innerHTML = "";
+    dropdownAppliance.innerHTML = "";
     listAppliance.forEach((applianceList) => {
         const appliance = document.createElement('li');
         const lienAppliances = document.createElement('a');
         lienAppliances.classList.add('dropdown-item', 'eventAppliance');
         lienAppliances.textContent = applianceList;
+        lienAppliances.addEventListener('click', () => filterRecipes());
         appliance.appendChild(lienAppliances);
         dropdownAppliance.appendChild(appliance);
     });
@@ -39,11 +40,13 @@ function displayAppliance(listAppliance) {
 
 function displayUstensils(listUstensils) {
     const dropdownUstensils = document.getElementById('dropdownUstensils');
+    dropdownUstensils.innerHTML = "";
     listUstensils.forEach((ustensilsList) => {
         const ustensil = document.createElement('li');
         const lienUstensil = document.createElement('a');
         lienUstensil.classList.add('dropdown-item', 'eventUstensils');
         lienUstensil.textContent = ustensilsList;
+        lienUstensil.addEventListener('click', () => filterRecipes());
         ustensil.appendChild(lienUstensil);
         dropdownUstensils.appendChild(ustensil);
     });
@@ -60,13 +63,13 @@ function tagEvent() {
     tagEventCreator(eventUstensils, "ustensilsTags");
 };
 
-function tagEventCreator(event, btnColor) {
+function tagEventCreator(event, typeTag) {
     const tagList = document.getElementById("tagList");
     for (let i = 0; i < event.length; i++) {
         event[i].addEventListener("click", (e) => {
             let text = e.target.innerText;
-            const tag = `<button type="button" class="${btnColor}">
-      <span class="tag">${text}</span><i class="far fa-times-circle"></i></button>`
+            const tag = `<button type="button" class="${typeTag}Btn">
+      <span class="tag ${typeTag}">${text}</span><i class="far fa-times-circle"></i></button>`
             tagList.insertAdjacentHTML('beforeend', tag);
             tagClose();
         })
@@ -78,39 +81,6 @@ function tagClose() {
     close[close.length - 1].addEventListener("click", (event) => {
         let node = event.target.parentNode;
         node.parentNode.removeChild(node)
-    });
-}
-
-function searchGeneral(recipe, value) {
-
-    return recipe.name.toLowerCase().includes(value.toLowerCase()) ||
-        recipe.description.toLowerCase().includes(value.toLowerCase())
-}
-
-function searchTags(recipe) {
-    let listIngredients2 = [];
-        recipe.ingredients.forEach((ingredient) => {
-            if (!listIngredients2.includes(ingredient.ingredient.toLowerCase())) {
-                listIngredients2.push(ingredient.ingredient.toLowerCase());
-            }
-        })
-    console.log(listIngredients2)
-    return listIngredients2;
-
-    /*recipe.ingredients.findIndex((ingredient) => ingredient.ingredient.toLowerCase()).includes(ingredientsTags.findIndex((tagSelect) => tagSelect.toLowerCase()));*/
-
-}
-
-function searchFilter() {
-    const general = document.getElementById('general');
-
-    general.addEventListener("keyup", (event) => {
-        let recipesFilters = recipes.filter((recipe) => {
-            return searchGeneral(recipe, event.target.value) && searchTags(recipe);
-        })
-        displayRecipe(recipesFilters);
-        displayIngredients(recipesFilters);
-
     });
 }
 
