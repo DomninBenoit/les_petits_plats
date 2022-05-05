@@ -26,14 +26,29 @@ function extractUstensilInRecipe(recipe) {
     recipe.ustensils.forEach((ustensil) => {
         if (!listUstensil.includes(ustensil.toLowerCase())) {
             listUstensil.push(ustensil.toLowerCase());
-
         }
     })
     return listUstensil
 }
 
 function filterByIngredientsTags(recipe, selectedIngredientsTags) {
-    return console.log(selectedIngredientsTags);
+    let listIngredients = [];
+    recipe.ingredients.forEach((ingredient) => {
+        listIngredients = ingredient.ingredient.toLowerCase().includes(selectedIngredientsTags);
+    });
+    return listIngredients;
+}
+
+function filterByApplianceTags(recipe, selectedApplianceTags) {
+    return recipe.appliance.toLowerCase().includes(selectedApplianceTags);
+}
+
+function filterByUstensilsTags(recipe, selectedUstensilsTags) {
+    let listUstensil = [];
+    recipe.ustensils.forEach((ustensil) => {
+       listUstensil = ustensil.toLowerCase().includes(selectedUstensilsTags);
+    });
+    return listUstensil
 }
 
 function filterRecipes() {
@@ -43,9 +58,11 @@ function filterRecipes() {
     const general = document.getElementById('general');
     let valueInputGeneral = general.value;
     const selectedIngredientsTags = Array.prototype.map.call(document.getElementsByClassName('ingredientsTags'), (ingredient) => ingredient.textContent);
-    console.log(selectedIngredientsTags)
+    const selectedApplianceTags = Array.prototype.map.call(document.getElementsByClassName('applianceTags'), (appliance) => appliance.textContent);
+    const selectedUstensilsTags = Array.prototype.map.call(document.getElementsByClassName('ustensilsTags'), (ustensil) => ustensil.textContent);
+    console.log(selectedApplianceTags)
     let recipesFilters = recipes.filter((recipe) => {
-        if (searchGeneral(recipe, valueInputGeneral) || filterByIngredientsTags(recipe, selectedIngredientsTags)) {
+        if (searchGeneral(recipe, valueInputGeneral) && filterByIngredientsTags(recipe, selectedIngredientsTags) && filterByApplianceTags(recipe, selectedApplianceTags) && filterByUstensilsTags(recipe, selectedUstensilsTags)) {
             listIngredients = listIngredients.concat(extractIngredientsInRecipe(recipe))
             listAppliance = listAppliance.concat(extractApplianceInRecipe(recipe))
             listUstensil = listUstensil.concat(extractUstensilInRecipe(recipe))
@@ -66,5 +83,17 @@ function searchFilter() {
     general.addEventListener("keyup", () => {
         filterRecipes()
     })
-
 };
+
+function filterApplianceByApplianceBloc() {
+    const appliance = document.getElementById('appareils');
+    let listAppliance = [];
+    appliance.addEventListener("keyup", (event) => {
+        recipes.forEach((recipe) => {
+            recipe.appliance.filter((app) => {
+                listAppliance = app.toLowerCase().includes(event.target.value);
+                console.log(listAppliance)
+            })
+        })
+    })
+}

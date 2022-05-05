@@ -117,6 +117,7 @@ function init() {
     displayUstensils(listUstensil);
     tagEvent();
     searchFilter();
+    filterApplianceByApplianceBloc();
 };
 
 init();

@@ -46,11 +46,10 @@
     color: white;
   }
 
-/*  .dropdownOpen {
-    width: 677px !important;
-    z-index: 1;
-
-  }*/
+  .dropdown {
+    display: flex;
+    flex-direction: row;
+  }
 
   .input-group::placeholder {
     color: white;

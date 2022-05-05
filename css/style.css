@@ -11167,11 +11167,6 @@ header img {
   display: flex;
   flex-direction: row;
   margin: 25px 0 0 0;
-  /*  .dropdownOpen {
-      width: 677px !important;
-      z-index: 1;
-
-    }*/
 }
 .searchDetails .input-group {
   width: 170px;
@@ -11179,6 +11174,10 @@ header img {
   padding-left: 15px;
   border: none;
   color: white;
+}
+.searchDetails .dropdown {
+  display: flex;
+  flex-direction: row;
 }
 .searchDetails .input-group::placeholder {
   color: white;
