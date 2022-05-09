@@ -1,3 +1,7 @@
+const selectedIngredientsTags = [];
+const selectedApplianceTags = [];
+const selectedUstensilsTags = [];
+
 function displayRecipe(recipesArray) {
     const recipesSection = document.querySelector('.recipe_section');
     recipesSection.innerHTML = "";
@@ -68,6 +72,16 @@ function tagEventCreator(event, typeTag) {
     for (let i = 0; i < event.length; i++) {
         event[i].addEventListener("click", (e) => {
             let text = e.target.innerText;
+            if (typeTag === 'ingredientsTags') {
+                selectedIngredientsTags.push(text);
+            }
+            else if (typeTag === 'applianceTags') {
+                selectedApplianceTags.push(text);
+                console.log(selectedApplianceTags)
+            }
+            else if (typeTag === 'ustensilsTags') {
+                selectedUstensilsTags.push(text);
+            }
             const tag = `<button type="button" class="${typeTag}Btn">
       <span class="tag ${typeTag}">${text}</span><i class="far fa-times-circle"></i></button>`
             tagList.insertAdjacentHTML('beforeend', tag);
@@ -106,18 +120,16 @@ function init() {
             }
         })
     });
-    const click = document.querySelector('.fa-chevron-down');
-    click.addEventListener("click", () => {
-        const ingBloc = document.querySelector('.ingredientBloc');
-        ingBloc.classList.toggle("dropdownOpen");
-    })
+
     displayRecipe(recipes);
     displayIngredients(listIngredients);
     displayAppliance(listAppliance);
     displayUstensils(listUstensil);
     tagEvent();
     searchFilter();
+    filterIngredientsByIngredientsBloc();
     filterApplianceByApplianceBloc();
+    filterUstensilByUstensilesBloc();
 };
 
 init();
