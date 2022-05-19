@@ -20,18 +20,19 @@ function extractIngredientsInRecipe(recipe) {
 }
 
 function filterByIngredientsTags(recipe, selectedIngredientsTags) {
+    let ingredientsInRecipe = extractIngredientsInRecipe(recipe);
     if (selectedIngredientsTags.length === 0) {
         return true
     } else {
         let listIngredients = [];
-        for (let i = 0; i < extractIngredientsInRecipe(recipe).length; i++) {
-            if (extractIngredientsInRecipe(recipe)[i].includes(selectedIngredientsTags)) {
+        for (let i = 0; i < selectedIngredientsTags.length; i++) {
+            if (ingredientsInRecipe.findIndex((ingredient) => ingredient.toLowerCase() === selectedIngredientsTags[i].toLowerCase()) > -1) {
                 listIngredients.push(true);
+            } else {
+                listIngredients.push(false);
             }
         }
-        console.log(listIngredients.includes(true))
-        /*let listIngredients = extractIngredientsInRecipe(recipe).map((ingredient) => selectedIngredientsTags.includes(ingredient.toLowerCase()));*/
-        return listIngredients.includes(true);
+        return !listIngredients.includes(false);
     }
 }
 
@@ -47,8 +48,15 @@ function filterByUstensilsTags(recipe, selectedUstensilsTags) {
     if (selectedUstensilsTags.length === 0) {
         return true
     } else {
-        let listUstensil = recipe.ustensils.map((ustensil) => selectedUstensilsTags.includes(ustensil.toLowerCase()));
-        return listUstensil.includes(true);
+        let listUstensil = [];
+        for (let i = 0; i < selectedUstensilsTags.length; i++) {
+            if (recipe.ustensils.findIndex((ustensil) => ustensil.toLowerCase() === selectedUstensilsTags[i].toLowerCase()) > -1) {
+                listUstensil.push(true)
+            } else {
+                listUstensil.push(false);
+            }
+        }
+        return !listUstensil.includes(false);
     }
 }
 
@@ -58,26 +66,34 @@ function filterRecipes() {
     let listUstensil = [];
     const general = document.getElementById('general');
     let valueInputGeneral = general.value;
-    let recipesFilters = recipes.filter((recipe) => {
-        if (searchGeneral(recipe, valueInputGeneral) && (filterByIngredientsTags(recipe, selectedIngredientsTags) && filterByApplianceTags(recipe, selectedApplianceTags) && filterByUstensilsTags(recipe, selectedUstensilsTags))) {
+    let recipesFilters = [];
 
-            let recipeIngredients = extractIngredientsInRecipe(recipe).filter((ingredient) => !listIngredients.includes(ingredient.toLowerCase()))
-            listIngredients = listIngredients.concat(recipeIngredients);
+    for (let i = 0; i < recipes.length; i++) {
 
-            if (!listAppliance.includes(recipe.appliance.toLowerCase())) {
-                listAppliance.push(recipe.appliance.toLowerCase());
-            }
-            for (let i = 0; i < recipe.ustensils.length; i++) {
-                for (ustensil of recipe.ustensils) {
-                    if (!listUstensil.includes(ustensil.toLowerCase())) {
-                        listUstensil.push(ustensil.toLowerCase());
+        if (searchGeneral(recipes[i], valueInputGeneral) && (filterByIngredientsTags(recipes[i], selectedIngredientsTags) && filterByApplianceTags(recipes[i], selectedApplianceTags) && filterByUstensilsTags(recipes[i], selectedUstensilsTags))) {
+
+                let recipeIngredients = [];
+                let ingredientsInRecipe = extractIngredientsInRecipe(recipes[i]);
+                for (let j = 0; j < ingredientsInRecipe.length; j++) {
+                    if (!listIngredients.includes(ingredientsInRecipe[j].toLowerCase())) {
+                        recipeIngredients.push(ingredientsInRecipe[j]);
                     }
                 }
+                listIngredients = listIngredients.concat(recipeIngredients);
+
+                if (!listAppliance.includes(recipes[i].appliance.toLowerCase())) {
+                    listAppliance.push(recipes[i].appliance.toLowerCase());
+                }
+                for (let j = 0; j < recipes[j].ustensils.length; j++) {
+                    for (ustensil of recipes[j].ustensils) {
+                        if (!listUstensil.includes(ustensil.toLowerCase())) {
+                            listUstensil.push(ustensil.toLowerCase());
+                        }
+                    }
+                }
+                recipesFilters.push(recipes[i]);
             }
-            return true;
         }
-        return false;
-    })
     displayRecipe(recipesFilters);
     displayIngredients(listIngredients);
     displayAppliance(listAppliance);
