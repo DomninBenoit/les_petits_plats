@@ -18,11 +18,12 @@ function extractIngredientsInRecipe(recipe) {
 }
 
 function filterByIngredientsTags(recipe, selectedIngredientsTags) {
+    let ingredientsInRecipe = extractIngredientsInRecipe(recipe);
     if (selectedIngredientsTags.length === 0) {
         return true
     } else {
-        let listIngredients = extractIngredientsInRecipe(recipe).map((ingredient) => selectedIngredientsTags.includes(ingredient.toLowerCase()));
-        return listIngredients.includes(true);
+        let listIngredients = selectedIngredientsTags.map((selectedIngredientTag) => ingredientsInRecipe.findIndex((ingredient) => ingredient.toLowerCase() === selectedIngredientTag.toLowerCase()) > -1);
+        return !listIngredients.includes(false);
     }
 }
 
@@ -38,8 +39,8 @@ function filterByUstensilsTags(recipe, selectedUstensilsTags) {
     if (selectedUstensilsTags.length === 0) {
         return true
     } else {
-        let listUstensil = recipe.ustensils.map((ustensil) => selectedUstensilsTags.includes(ustensil.toLowerCase()));
-        return listUstensil.includes(true);
+        let listUstensil = selectedUstensilsTags.map((selectedUstensilTag) => recipe.ustensils.findIndex((ustensil) => ustensil.toLowerCase() === selectedUstensilTag.toLowerCase()) > -1);
+        return !listUstensil.includes(false);
     }
 }
 
